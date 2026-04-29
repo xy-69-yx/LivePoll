@@ -1,0 +1,17 @@
+**/node_modules/
+**/dist/
+**/target/
+**/test_snapshots/
+**/.vite/
+.chrome-headless/
+.edge-headless/
+.edge-debug/
+.chrome-demo-profile/
+docs/.demo-browser-profile/
+docs/.profile-*/
+/package-lock.json
+*.log
+.DS_Store
+Thumbs.db
+.soroban
+.stellar

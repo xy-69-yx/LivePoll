@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "cd live-poll-website && npm ci",
+  "buildCommand": "cd live-poll-website && npm run build",
+  "outputDirectory": "live-poll-website/dist"
+}
