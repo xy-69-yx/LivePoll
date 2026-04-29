@@ -525,14 +525,20 @@
 }
 
 @media (max-width: 960px) {
-  .masthead,
-  .options-grid {
-    grid-template-columns: 1fr;
-  }
-
   .masthead {
+    flex-direction: column;
     align-items: start;
     padding: 44px 0 32px;
+    gap: 20px;
+  }
+
+  .masthead-actions {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .options-grid {
+    grid-template-columns: 1fr;
   }
 
   .section-heading {
@@ -546,7 +552,28 @@
 
 @media (max-width: 640px) {
   .band-inner {
-    width: min(100%, calc(100% - 20px));
+    width: min(100%, calc(100% - 24px));
+  }
+
+  .masthead {
+    padding: 32px 0 24px;
+    gap: 16px;
+  }
+
+  .masthead-copy .lead {
+    font-size: 16px;
+  }
+
+  .wallet-band .band-inner,
+  .voting-band .band-inner {
+    padding: 20px 0 28px;
+  }
+
+  .overview-grid,
+  .insights-grid,
+  .activity-grid {
+    padding: 16px 0;
+    gap: 14px;
   }
 
   .summary-panel,
@@ -555,23 +582,38 @@
   .option-card,
   .insight-panel,
   .activity-panel {
-    padding: 18px;
-    border-radius: 16px;
+    padding: 16px;
+    border-radius: 14px;
   }
 
   .summary-metrics,
   .insight-metrics {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .metric-card,
+  .stat-card {
+    padding: 12px;
   }
 
   .option-head strong,
   .metric-card strong,
   .stat-card strong {
-    font-size: 24px;
+    font-size: 22px;
   }
 
-  .summary-header,
-  .masthead-actions,
+  .summary-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .masthead-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
   .detail-value,
   .wallet-selection-meta,
   .wallet-selection-actions,
@@ -588,9 +630,62 @@
   .vote-button {
     width: 100%;
     justify-content: center;
+    text-align: center;
   }
 
   .vote-button {
     justify-self: stretch;
+  }
+
+  .section-heading {
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .section-heading h2 {
+    margin-bottom: 4px;
+  }
+
+  .wallet-select {
+    font-size: 16px; /* prevents iOS zoom on focus */
+  }
+
+  .ops-list {
+    gap: 10px;
+  }
+
+  .ops-row {
+    padding-bottom: 10px;
+  }
+
+  .activity-feed {
+    gap: 10px;
+  }
+
+  .feed-item {
+    padding: 12px;
+  }
+
+  .notice {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  code {
+    font-size: 12px;
+    word-break: break-all;
+  }
+}
+
+@media (max-width: 400px) {
+  .summary-metrics,
+  .insight-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .eyebrow {
+    font-size: 12px;
   }
 }
