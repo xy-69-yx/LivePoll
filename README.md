@@ -1,153 +1,249 @@
 # Live Poll on Stellar Testnet
 
-[![CI](https://github.com/rahul7686/LivePoll-Adv/actions/workflows/ci.yml/badge.svg)](https://github.com/rahul7686/LivePoll-Adv/actions/workflows/ci.yml)
+[![CI](https://github.com/xy-69-yx/LivePoll/actions/workflows/ci.yml/badge.svg)](https://github.com/xy-69-yx/LivePoll/actions/workflows/ci.yml)
+[![Deploy](https://github.com/xy-69-yx/LivePoll/actions/workflows/deploy.yml/badge.svg)](https://github.com/xy-69-yx/LivePoll/actions/workflows/deploy.yml)
 
-Advanced poll dApp built with Soroban smart contracts and a React frontend.
-The current public deployment stays compatible with the legacy poll contract,
-while the repo now includes the upgraded reward-token contract, inter-contract
-minting flow, CI automation, and a mobile-ready production dashboard.
+Advanced poll dApp built with Soroban smart contracts and a React frontend. This project includes a poll contract with voting rewards, a reward token contract, inter-contract minting, CI/CD automation, and a mobile-responsive production dashboard.
 
-## Project Links
+## 📑 Table of Contents
 
-- Live demo link: [live-poll-adv.vercel.app](https://live-poll-adv.vercel.app/)
-- Demo video: [Google Drive recording](https://drive.google.com/file/d/1UR3PWTMgjcDsVdP7BnRU-rHqyRAdyuBA/view?usp=sharing)
+- [Quick Links](#-quick-links)
+- [Features](#-features)
+- [Project Structure](#-project-structure)
+- [Architecture](#-architecture)
+- [Getting Started](#-getting-started)
+- [Smart Contracts](#-smart-contracts)
+- [Current Deployment](#-current-deployment)
+- [Testing & Verification](#-testing--verification)
+- [CI/CD](#-cicd)
+- [Contributing](#-contributing)
 
-## Advanced Submission Checklist
+## 🔗 Quick Links
 
-- Inter-contract call working: `vote_for` in the poll contract now mints reward points through the separate reward-token contract and is covered by local tests.
-- Custom token included: `poll-reward-token` is part of the Soroban workspace and supports admin handoff plus mint tracking.
-- CI/CD running: GitHub Actions now runs contract tests plus frontend lint/build on pushes and pull requests, and Vercel can deploy the root repo via [`vercel.json`](./vercel.json).
-- Mobile responsive: the frontend layout now adapts across desktop and mobile with stacked action controls, responsive analytics cards, and an event feed that stays readable on small screens.
-- Minimum 8+ meaningful commits: the repository history already exceeds this requirement.
+- **Live Demo**: [live-poll-adv.vercel.app](https://live-poll-adv.vercel.app/)
+- **Demo Video**: [Google Drive Recording](https://drive.google.com/file/d/1UR3PWTMgjcDsVdP7BnRU-rHqyRAdyuBA/view?usp=sharing)
+- **Local MP4 Asset**: [`docs/live-poll-demo.mp4`](./docs/live-poll-demo.mp4)
 
-## What Changed
+## ✨ Features
 
-- Legacy-safe contract detection: the frontend probes the deployed contract and falls back to `vote` when the advanced contract pair has not been redeployed yet.
-- Advanced voting path: the upgraded poll contract adds `vote_for`, voter-level tallies, reward-rate reads, reward-balance reads, and reward-contract discovery.
-- Separate reward token contract: the new token contract tracks balances, total supply, and admin handoff so the poll contract can become the minting authority after deployment.
-- Real-time event feed: the app now streams both `voted` and `rewarded` Soroban events into a richer activity feed.
-- Production readiness: GitHub Actions CI, Vite chunk splitting, wallet persistence fixes, and mobile-first layout refinements are all included in the repo.
+- **Inter-contract Calls**: `vote_for` in the poll contract mints reward points through the separate reward-token contract with full test coverage
+- **Custom Reward Token**: `poll-reward-token` contract with admin handoff and mint tracking
+- **Responsive Design**: Adapts across desktop and mobile with stacked controls, responsive cards, and readable event feed
+- **Legacy Support**: Frontend detects contract version and falls back to `vote` when advanced contract pair hasn't been redeployed
+- **Real-time Events**: Streams both `voted` and `rewarded` Soroban events into activity feed
+- **Production Ready**: GitHub Actions CI, Vite chunk splitting, wallet persistence fixes, and mobile-first layout
 
-## Architecture
+## 📦 Project Structure
 
-- `live-poll-contract/contracts/hello-world/`
-  Primary poll contract. Keeps legacy `vote(option)` support while adding advanced `vote_for(voter, option)` with reward-token minting.
-- `live-poll-contract/contracts/poll-reward-token/`
-  Reward token contract. Handles balance tracking, total supply, and admin handoff to the poll contract.
-- `live-poll-website/`
-  React + Vite frontend. Auto-detects advanced contract support, shows wallet-specific reward stats, and streams Soroban events.
+```
+live-poll-contract/          # Soroban Smart Contracts (Rust)
+├── contracts/
+│   ├── hello-world/         # Primary poll contract
+│   └── poll-reward-token/   # Reward token contract
+└── Cargo.toml
 
-## Current Public Deployment
+live-poll-website/           # React Frontend (Vite)
+├── src/
+├── public/
+├── package.json
+└── vite.config.js
 
-- Frontend URL: [live-poll-adv.vercel.app](https://live-poll-adv.vercel.app/)
-- Current public contract ID: `CC43GCB3LMRLKQ6JFJCPNT2QJXVOK73Y5HWAF7RZAYIMRL322I7WIZ6L`
-- Deploy transaction hash: `d7a8f8f378e8813c45db34e28e0721c11758c990564fe6864eb61753edfbf418`
-- Verified read transaction hash: `3c9004799722dc8dc79781602aef11f4e987b843d9d185183f45a478826f49dc`
+.github/workflows/           # GitHub Actions CI/CD
+├── ci.yml                   # Contract & website tests
+├── deploy.yml               # Vercel deployment
+└── validate-pr.yml          # PR validation
 
-The public contract above is still the legacy poll deployment. The upgraded
-reward-token pair is implemented and locally verified in this repo, but it has
-not been published to a new public contract ID from this snapshot yet. The
-frontend is built to detect that case automatically and keep the legacy vote
-flow working until the redeploy happens.
-
-## Screenshots
-
-- Mobile responsive view: add `docs/mobile-responsive.png` (take a screenshot with a mobile viewport, e.g. 390×844)
-
-## Recorded Demo
-
-- Demo video: [Google Drive recording](https://drive.google.com/file/d/1UR3PWTMgjcDsVdP7BnRU-rHqyRAdyuBA/view?usp=sharing)
-- Local MP4 asset: [`docs/live-poll-demo.mp4`](./docs/live-poll-demo.mp4)
-
-## Local Setup
-
-### Contract workspace
-
-```powershell
-cd live-poll-contract
-cargo test
-stellar contract build --manifest-path Cargo.toml --out-dir dist
+docs/                        # Documentation & assets
+Makefile                     # Development commands
 ```
 
-### Frontend
+## 🏗️ Architecture
 
-```powershell
+### Poll Contract (`live-poll-contract/contracts/hello-world/`)
+Primary contract that manages voting and rewards:
+- Keeps legacy `vote(option)` support
+- Adds advanced `vote_for(voter, option)` with reward minting
+- Tracks voter-level tallies and reward balances
+
+### Reward Token Contract (`live-poll-contract/contracts/poll-reward-token/`)
+Handles reward token management:
+- Tracks balances and total supply
+- Supports admin handoff to poll contract
+- Mints tokens on successful votes
+
+### Frontend (`live-poll-website/`)
+React + Vite application:
+- Auto-detects advanced contract support
+- Shows wallet-specific reward stats
+- Streams Soroban events in real-time
+- Mobile-responsive layout
+
+## 🚀 Getting Started
+
+### Quick Start
+
+```bash
+# Clone repository
+git clone https://github.com/xy-69-yx/LivePoll.git
+cd LivePoll
+
+# Install everything
+make setup
+
+# (Optional) Install pre-commit hooks for local validation
+make pre-commit-setup
+```
+
+### Contract Development
+
+```bash
+cd live-poll-contract
+
+# Run tests
+cargo test
+
+# Build contracts
+stellar contract build --manifest-path Cargo.toml --out-dir dist
+
+# Or use make commands
+make test
+make build-contracts
+```
+
+### Frontend Development
+
+```bash
 cd live-poll-website
+
+# Install dependencies
 npm install
+
+# Build contracts and generate TypeScript bindings
 npm run prepare:contracts
+
+# Start development server
 npm run dev
 ```
 
-If PowerShell blocks `npm.ps1`, use `npm.cmd install` and `npm.cmd run dev`
-instead.
+Development server runs at `https://localhost:5173/` (accept HTTPS warning once)
 
-For local development, open `https://localhost:5173/` and accept the local
-HTTPS warning once if your browser asks.
+### Environment Configuration
 
-### Environment
+Copy environment template to use custom deployment:
 
-Copy [`live-poll-website/.env.example`](./live-poll-website/.env.example) to a
-local `.env` file when you want to point the frontend at a different poll
-deployment.
-
-## Smart Contract Surface
-
-### Poll contract
-
-- `vote(option: Symbol) -> u32`
-- `vote_for(voter: Address, option: Symbol) -> u32`
-- `get_votes(option: Symbol) -> u32`
-- `get_total_votes() -> u32`
-- `get_voter_votes(voter: Address) -> u32`
-- `get_reward_balance(voter: Address) -> u32`
-- `get_reward_rate() -> u32`
-- `get_reward_contract() -> Address`
-- `get_last_option() -> Symbol`
-- `set_reward_rate(rate: u32)`
-
-### Reward token contract
-
-- `admin() -> Address`
-- `set_admin(next: Address)`
-- `mint(to: Address, amount: u32) -> u32`
-- `balance(owner: Address) -> u32`
-- `total_supply() -> u32`
-- `name() -> Symbol`
-- `symbol() -> Symbol`
-
-## Tests and Verification
-
-Contract tests now cover both contracts:
-
-- Poll contract: 6 passing tests
-- Reward token contract: 3 passing tests
-
-Frontend verification:
-
-```powershell
-cd live-poll-contract
-cargo test
-
-cd ../live-poll-website
-npm.cmd run lint
-npm.cmd run build
+```bash
+cp live-poll-website/.env.example live-poll-website/.env
 ```
 
-## CI/CD
+Edit `.env` to point at different poll deployment if needed.
 
-- CI workflow: [`/.github/workflows/ci.yml`](./.github/workflows/ci.yml)
-- Vercel root deployment config: [`vercel.json`](./vercel.json)
+## 📋 Smart Contracts
 
-The GitHub Actions workflow runs:
+### Poll Contract Interface
 
-- Rust contract tests
-- Release Wasm builds for both contracts
-- Frontend `npm ci`
-- Frontend `npm run lint`
-- Frontend `npm run build`
+```rust
+vote(option: Symbol) -> u32
+vote_for(voter: Address, option: Symbol) -> u32
+get_votes(option: Symbol) -> u32
+get_total_votes() -> u32
+get_voter_votes(voter: Address) -> u32
+get_reward_balance(voter: Address) -> u32
+get_reward_rate() -> u32
+get_reward_contract() -> Address
+get_last_option() -> Symbol
+set_reward_rate(rate: u32)
+```
 
-Vercel can keep deploying the repo root from `main` using the existing
-workspace-aware commands in `vercel.json`.
+### Reward Token Contract Interface
+
+```rust
+admin() -> Address
+set_admin(next: Address)
+mint(to: Address, amount: u32) -> u32
+balance(owner: Address) -> u32
+total_supply() -> u32
+name() -> Symbol
+symbol() -> Symbol
+```
+
+## 🌐 Current Deployment
+
+- **Frontend URL**: [live-poll-adv.vercel.app](https://live-poll-adv.vercel.app/)
+- **Contract ID**: `CC43GCB3LMRLKQ6JFJCPNT2QJXVOK73Y5HWAF7RZAYIMRL322I7WIZ6L`
+- **Deploy TX**: `d7a8f8f378e8813c45db34e28e0721c11758c990564fe6864eb61753edfbf418`
+- **Verified TX**: `3c9004799722dc8dc79781602aef11f4e987b843d9d185183f45a478826f49dc`
+
+**Note**: Current public contract is legacy poll deployment. The upgraded reward-token pair is implemented and locally verified but not yet published. Frontend automatically detects this and maintains backward compatibility.
+
+## ✅ Testing & Verification
+
+### Run All Tests
+
+```bash
+# Quick test everything
+make test
+
+# Test contracts specifically
+cd live-poll-contract && cargo test
+
+# Test website build
+cd live-poll-website && npm run lint && npm run build
+```
+
+### Test Coverage
+
+- **Poll Contract**: 6+ passing tests
+- **Reward Token Contract**: 3+ passing tests
+- **Website**: ESLint validation + build verification
+
+## 🔄 CI/CD
+
+Automated workflows run on every push and pull request:
+
+- **CI Pipeline** ([`.github/workflows/ci.yml`](./.github/workflows/ci.yml))
+  - Rust formatting & linting (Clippy)
+  - Contract build and tests
+  - Website linting (ESLint)
+  - Website build verification
+  - Security scanning (Trivy)
+
+- **Deploy Pipeline** ([`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml))
+  - Automatic deployment to Vercel on main branch
+  - Contract building and bindings generation
+
+- **Configuration**: [`vercel.json`](./vercel.json)
+
+### Local Development
+
+Check code before pushing:
+
+```bash
+# Format code
+make format
+
+# Lint code
+make lint
+
+# Run all checks
+make lint && make test && make build
+```
+
+For more details, see [CI_CD_GUIDE.md](./CI_CD_GUIDE.md) and [PIPELINES.md](./PIPELINES.md)
+
+## 🤝 Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for:
+- Development setup instructions
+- Code style guidelines
+- Testing requirements
+- Pull request process
+- Commit message conventions
+
+Quick reference: [QUICKSTART.md](./QUICKSTART.md)
+
+---
+
+**Project Status**: Production-ready with comprehensive CI/CD, mobile responsiveness, and advanced smart contract features.
 
 ## Deployment Flow for the Advanced Pair
 
