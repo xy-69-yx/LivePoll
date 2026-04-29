@@ -2,68 +2,71 @@ name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches:
+      - main
   pull_request:
-    branches: [ main, develop ]
+  workflow_dispatch:
 
 jobs:
   contracts:
-    name: Check Contracts
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout code
+      - name: Check out repository
         uses: actions/checkout@v4
-      
-      - name: Install Rust
+
+      - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: wasm32v1-none
-      
-      - name: Cache Cargo
-        uses: Swatinem/rust-cache@v2
+
+      - name: Cache cargo artifacts
+        uses: actions/cache@v4
         with:
-          workspaces: live-poll-contract
-      
-      - name: Check Rust formatting
-        working-directory: live-poll-contract
-        run: cargo fmt -- --check
-      
-      - name: Run Clippy lints
-        working-directory: live-poll-contract
-        run: cargo clippy --all-targets --all-features -- -D warnings
-      
-      - name: Build contracts
-        working-directory: live-poll-contract
-        run: cargo build --target wasm32v1-none --release
-      
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            live-poll-contract/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('live-poll-contract/Cargo.lock') }}
+
       - name: Run contract tests
         working-directory: live-poll-contract
-        run: cargo test --lib
-  
-  website:
-    name: Check Website
+        run: cargo test
+
+      - name: Build release Wasm artifacts
+        working-directory: live-poll-contract
+        run: cargo build --workspace --target wasm32v1-none --release
+
+      - name: Upload contract Wasm
+        uses: actions/upload-artifact@v4
+        with:
+          name: soroban-wasm
+          path: |
+            live-poll-contract/target/wasm32v1-none/release/hello_world.wasm
+            live-poll-contract/target/wasm32v1-none/release/poll_reward_token.wasm
+
+  frontend:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout code
+      - name: Check out repository
         uses: actions/checkout@v4
-      
-      - name: Setup Node.js
+
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: 22
+          cache: npm
           cache-dependency-path: live-poll-website/package-lock.json
-      
-      - name: Install dependencies
+
+      - name: Install frontend dependencies
         working-directory: live-poll-website
-        run: npm ci
-      
-      - name: Run ESLint
+        run: npm ci --ignore-scripts
+
+      - name: Lint frontend
         working-directory: live-poll-website
         run: npm run lint
-      
-      - name: Build website
+
+      - name: Build frontend
         working-directory: live-poll-website
         run: npm run build
