@@ -1,0 +1,97 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  contracts:
+    name: Soroban Contracts
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      
+      - name: Install Stellar CLI
+        run: |
+          curl https://stellar.org/releases/stellar-cli/stellar-linux-amd64 -o stellar
+          chmod +x stellar
+          sudo mv stellar /usr/local/bin/
+      
+      - name: Cache Cargo
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: live-poll-contract
+      
+      - name: Check Rust formatting
+        working-directory: live-poll-contract
+        run: cargo fmt -- --check
+      
+      - name: Run Clippy lints
+        working-directory: live-poll-contract
+        run: cargo clippy --all-targets --all-features -- -D warnings
+      
+      - name: Build contracts
+        working-directory: live-poll-contract
+        run: cargo build --target wasm32-unknown-unknown --release
+      
+      - name: Run contract tests
+        working-directory: live-poll-contract
+        run: cargo test --lib
+  
+  website:
+    name: Website (Frontend)
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: live-poll-website/package-lock.json
+      
+      - name: Install dependencies
+        working-directory: live-poll-website
+        run: npm ci
+      
+      - name: Run ESLint
+        working-directory: live-poll-website
+        run: npm run lint
+      
+      - name: Build website
+        working-directory: live-poll-website
+        run: npm run build
+  
+  security:
+    name: Security Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      
+      - name: Upload Trivy results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
