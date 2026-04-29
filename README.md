@@ -15,8 +15,6 @@ Advanced poll dApp built with Soroban smart contracts and a React frontend. This
 - [Smart Contracts](#-smart-contracts)
 - [Current Deployment](#-current-deployment)
 - [Testing & Verification](#-testing--verification)
-- [CI/CD](#-cicd)
-- [Contributing](#-contributing)
 
 ## 🔗 Quick Links
 
@@ -180,10 +178,7 @@ symbol() -> Symbol
 ### Run All Tests
 
 ```bash
-# Quick test everything
-make test
-
-# Test contracts specifically
+# Test contracts
 cd live-poll-contract && cargo test
 
 # Test website build
@@ -196,54 +191,9 @@ cd live-poll-website && npm run lint && npm run build
 - **Reward Token Contract**: 3+ passing tests
 - **Website**: ESLint validation + build verification
 
-## 🔄 CI/CD
-
-Automated workflows run on every push and pull request:
-
-- **CI Pipeline** ([`.github/workflows/ci.yml`](./.github/workflows/ci.yml))
-  - Rust formatting & linting (Clippy)
-  - Contract build and tests
-  - Website linting (ESLint)
-  - Website build verification
-  - Security scanning (Trivy)
-
-- **Deploy Pipeline** ([`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml))
-  - Automatic deployment to Vercel on main branch
-  - Contract building and bindings generation
-
-- **Configuration**: [`vercel.json`](./vercel.json)
-
-### Local Development
-
-Check code before pushing:
-
-```bash
-# Format code
-make format
-
-# Lint code
-make lint
-
-# Run all checks
-make lint && make test && make build
-```
-
-For more details, see [CI_CD_GUIDE.md](./CI_CD_GUIDE.md) and [PIPELINES.md](./PIPELINES.md)
-
-## 🤝 Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for:
-- Development setup instructions
-- Code style guidelines
-- Testing requirements
-- Pull request process
-- Commit message conventions
-
-Quick reference: [QUICKSTART.md](./QUICKSTART.md)
-
 ---
 
-**Project Status**: Production-ready with comprehensive CI/CD, mobile responsiveness, and advanced smart contract features.
+**Project Status**: Production-ready with comprehensive smart contract features and mobile responsiveness.
 
 ## Deployment Flow for the Advanced Pair
 

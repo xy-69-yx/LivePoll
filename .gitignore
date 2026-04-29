@@ -15,23 +15,3 @@ docs/.profile-*/
 Thumbs.db
 .soroban
 .stellar
-
-# CI/CD and build artifacts
-trivy-results.sarif
-*.wasm
-live-poll-contract/dist/
-
-# Development environment
-.env
-.env.local
-.env.*.local
-
-# IDE and editor
-.vscode/settings.json
-.idea/
-*.swp
-*.swo
-*~
-
-# Pre-commit
-.pre-commit/
