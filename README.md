@@ -191,6 +191,10 @@ cd live-poll-website && npm run lint && npm run build
 - **Reward Token Contract**: 3+ passing tests
 - **Website**: ESLint validation + build verification
 
+### CI/CD Pipeline
+
+![CI/CD Pipeline](./docs/cicd-screenshot.png)
+
 ---
 
 **Project Status**: Production-ready with comprehensive smart contract features and mobile responsiveness.
