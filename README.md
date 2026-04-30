@@ -25,16 +25,17 @@ Advanced poll dApp built with Soroban smart contracts and a React frontend. This
 ## 📸 Screenshots
 
 ### Dashboard — Desktop
-![Dashboard desktop view](./docs/screenshots/dashboard-desktop.png)
+<img width="1426" height="792" alt="image" src="https://github.com/user-attachments/assets/586cfbbb-4dc0-405d-af02-6e3a60446925" />
 
 ### Ballot — Voting panel
-![Voting panel](./docs/screenshots/ballot.png)
+<img width="1426" height="792" alt="image" src="https://github.com/user-attachments/assets/ec098f55-14ef-428f-8e54-327e8ff9b933" />
 
 ### Mobile view
-![Mobile layout](./docs/screenshots/mobile.png)
+<img width="391" height="720" alt="image" src="https://github.com/user-attachments/assets/ac2dba02-2b7f-401e-8c4e-fec75b0cd58f" />
 
 ### CI/CD Pipeline
-![CI/CD pipeline](./docs/cicd-screenshot.png)
+<img width="1424" height="785" alt="2026-04-30_08-45-38" src="https://github.com/user-attachments/assets/ebf84cb8-fdd5-4cdd-8ee8-46259755129d" />
+
 
 > Drop your screenshots into `docs/screenshots/` and name them to match the paths above.
 
