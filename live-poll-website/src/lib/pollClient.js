@@ -1,9 +1,9 @@
 import { Client as LivePollClient } from '@contract-client'
-import { nativeToScVal, networks, rpc, scValToNative } from '@stellar/stellar-sdk'
+import { nativeToScVal, Networks, rpc, scValToNative } from '@stellar/stellar-sdk'
 
 export const POLL_RPC_URL =
   import.meta.env.VITE_POLL_RPC_URL ?? 'https://stellar-soroban-testnet-public.nodies.app'
-export const POLL_NETWORK_PASSPHRASE = networks.testnet.networkPassphrase
+export const POLL_NETWORK_PASSPHRASE = Networks.TESTNET
 export const POLL_CONTRACT_ID =
   import.meta.env.VITE_POLL_CONTRACT_ID ??
   'CC43GCB3LMRLKQ6JFJCPNT2QJXVOK73Y5HWAF7RZAYIMRL322I7WIZ6L'
