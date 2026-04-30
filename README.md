@@ -7,6 +7,7 @@ Advanced poll dApp built with Soroban smart contracts and a React frontend. This
 ## 📑 Table of Contents
 
 - [Quick Links](#-quick-links)
+- [Screenshots](#-screenshots)
 - [Features](#-features)
 - [Project Structure](#-project-structure)
 - [Architecture](#-architecture)
@@ -20,6 +21,22 @@ Advanced poll dApp built with Soroban smart contracts and a React frontend. This
 - **Live Demo**: [live-poll-gules.vercel.app](https://live-poll-gules.vercel.app/)
 - **Demo Video**: [Google Drive Recording](https://drive.google.com/file/d/1N8wHSZMYZHVoWZgRxhoigHUJqUFOhtRf/view?usp=sharing)
 - **Local MP4 Asset**: [`docs/live-poll-demo.mp4`](./docs/live-poll-demo.mp4)
+
+## 📸 Screenshots
+
+### Dashboard — Desktop
+![Dashboard desktop view](./docs/screenshots/dashboard-desktop.png)
+
+### Ballot — Voting panel
+![Voting panel](./docs/screenshots/ballot.png)
+
+### Mobile view
+![Mobile layout](./docs/screenshots/mobile.png)
+
+### CI/CD Pipeline
+![CI/CD pipeline](./docs/cicd-screenshot.png)
+
+> Drop your screenshots into `docs/screenshots/` and name them to match the paths above.
 
 ## ✨ Features
 
