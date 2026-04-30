@@ -1,24 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Sora:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 :root {
-  --text: #32424a;
-  --heading: #13232c;
-  --muted: #647780;
-  --page-bg: #f4f7f8;
-  --surface: #f9fbfb;
-  --surface-strong: #eef3f4;
-  --card-bg: rgba(255, 255, 255, 0.92);
-  --card-border: rgba(19, 35, 44, 0.1);
-  --border: rgba(19, 35, 44, 0.08);
-  --primary: #1f7a8c;
-  --button-muted: #dce9ed;
-  --pill-bg: rgba(31, 122, 140, 0.12);
-  --chip-bg: rgba(19, 35, 44, 0.06);
-  --code-bg: rgba(19, 35, 44, 0.06);
-  --sans: 'Manrope', 'Segoe UI', sans-serif;
-  --heading-font: 'Sora', 'Segoe UI', sans-serif;
+  --text: #c9d4db;
+  --heading: #f0f4f7;
+  --muted: #7a8f9a;
+  --page-bg: #080e12;
+  --surface: #0d1519;
+  --surface-strong: #111c22;
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.06);
+  --primary: #00d4aa;
+  --primary-dim: rgba(0, 212, 170, 0.15);
+  --primary-glow: rgba(0, 212, 170, 0.35);
+  --coral: #ff6b4a;
+  --coral-dim: rgba(255, 107, 74, 0.15);
+  --button-muted: rgba(255, 255, 255, 0.08);
+  --pill-bg: rgba(0, 212, 170, 0.12);
+  --chip-bg: rgba(255, 255, 255, 0.07);
+  --code-bg: rgba(255, 255, 255, 0.06);
+  --sans: 'Inter', 'Segoe UI', sans-serif;
+  --heading-font: 'Space Grotesk', 'Segoe UI', sans-serif;
   --mono: 'Cascadia Code', 'SFMono-Regular', Consolas, monospace;
-  font: 16px/1.5 var(--sans);
+  font: 15px/1.6 var(--sans);
   color: var(--text);
   background: var(--page-bg);
   font-synthesis: none;
@@ -64,22 +68,26 @@ h2,
 h3 {
   color: var(--heading);
   font-family: var(--heading-font);
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
 }
 
 h1 {
-  font-size: clamp(2.4rem, 5vw, 4.3rem);
-  line-height: 1.02;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  line-height: 1.05;
   margin: 14px 0 12px;
+  background: linear-gradient(135deg, #f0f4f7 30%, #00d4aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 h2 {
-  font-size: 1.4rem;
-  line-height: 1.1;
+  font-size: 1.3rem;
+  line-height: 1.15;
 }
 
 h3 {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   line-height: 1.2;
 }
 
@@ -90,17 +98,24 @@ p {
 code {
   display: inline-flex;
   align-items: center;
-  min-height: 30px;
+  min-height: 28px;
   max-width: 100%;
-  padding: 4px 8px;
+  padding: 3px 8px;
   overflow-wrap: anywhere;
   border-radius: 6px;
   background: var(--code-bg);
-  color: var(--heading);
+  color: #00d4aa;
   font-family: var(--mono);
-  font-size: 13px;
+  font-size: 12px;
+  border: 1px solid rgba(0, 212, 170, 0.15);
 }
 
 a {
-  color: inherit;
+  color: var(--primary);
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+a:hover {
+  opacity: 0.8;
 }
