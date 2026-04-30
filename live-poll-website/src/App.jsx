@@ -1150,12 +1150,12 @@ function App() {
       <section className="band masthead-band">
         <div className="band-inner masthead">
           <div className="masthead-copy">
-            <span className="eyebrow">Stellar Testnet Live Poll</span>
-            <h1>Vote on-chain, stream every update, and prep for production.</h1>
+            <span className="eyebrow">Stellar Testnet · On-Chain Voting</span>
+            <h1>Cast your vote on Soroban and watch results land in real time.</h1>
             <p className="lead">
-              The upgraded app keeps legacy voting live, auto-detects advanced
-              contract capabilities, and surfaces real-time Soroban activity with
-              wallet-aware reward insights.
+              Connects to your browser wallet, detects whether the reward
+              contract is deployed, and streams every vote and mint event
+              straight from the ledger as it happens.
             </p>
           </div>
 
@@ -1206,41 +1206,41 @@ function App() {
 
             <div className="summary-metrics">
               <article className="metric-card">
-                <span className="metric-label">Total votes</span>
+                <span className="metric-label">Votes cast</span>
                 <strong>{totalVotes}</strong>
               </article>
               <article className="metric-card">
-                <span className="metric-label">Leading option</span>
+                <span className="metric-label">Out in front</span>
                 <strong>{leadingOption}</strong>
               </article>
               <article className="metric-card">
-                <span className="metric-label">Reward mode</span>
+                <span className="metric-label">Reward rate</span>
                 <strong>{rewardMetricValue}</strong>
               </article>
               <article className="metric-card">
-                <span className="metric-label">Updated</span>
-                <strong>{lastUpdatedAt || 'Checking now'}</strong>
+                <span className="metric-label">Last synced</span>
+                <strong>{lastUpdatedAt || 'Fetching…'}</strong>
               </article>
             </div>
 
             {walletAddress ? (
               <p className="wallet-line">
-                Connected wallet <span>{formatAddress(walletAddress)}</span>
+                Active wallet <span>{formatAddress(walletAddress)}</span>
               </p>
             ) : (
               <p className="wallet-line muted">
-                Pick any available wallet below to submit votes from the browser.
+                Select a wallet below to sign and submit transactions.
               </p>
             )}
 
             <p className="sync-line">
-              {syncState.message} Current cadence: {cadenceLabel}.
+              {syncState.message} Poll interval: {cadenceLabel}.
             </p>
           </div>
 
           <div className="detail-panel">
             <div className="detail-row">
-              <span>Contract</span>
+              <span>Poll contract</span>
               <div className="detail-value">
                 <code>{contractIdPreview}</code>
                 <button
@@ -1248,7 +1248,7 @@ function App() {
                   className="text-button"
                   onClick={copyContractId}
                 >
-                  {copiedContract ? 'Copied' : 'Copy ID'}
+                  {copiedContract ? 'Copied!' : 'Copy'}
                 </button>
               </div>
             </div>
@@ -1257,11 +1257,11 @@ function App() {
               <code>
                 {contractMode.rewardContract
                   ? formatContractPreview(contractMode.rewardContract)
-                  : 'Waiting for advanced deployment'}
+                  : 'Not yet deployed'}
               </code>
             </div>
             <div className="detail-row">
-              <span>RPC</span>
+              <span>RPC endpoint</span>
               <code>{POLL_RPC_URL}</code>
             </div>
             <div className="detail-row">
@@ -1269,8 +1269,8 @@ function App() {
               <code>{walletNetwork || 'Stellar Testnet'}</code>
             </div>
             <div className="detail-row">
-              <span>Wallet selection</span>
-              <code>{selectedWallet?.name || 'None yet'}</code>
+              <span>Active wallet</span>
+              <code>{selectedWallet?.name || 'None selected'}</code>
             </div>
           </div>
         </div>
@@ -1280,10 +1280,10 @@ function App() {
         <div className="band-inner">
           <div className="section-heading">
             <div>
-              <h2>Wallet options</h2>
+              <h2>Connect a wallet</h2>
               <p>
-                Multi-wallet support is powered by StellarWalletsKit. Choose one
-                wallet from the menu, then connect with a single action.
+                Powered by StellarWalletsKit — pick your wallet from the list
+                and link it with one click.
               </p>
             </div>
             <span className="network-pill">
@@ -1299,7 +1299,7 @@ function App() {
           <div className="wallet-picker-panel">
             <div className="wallet-picker-controls">
               <label className="wallet-select-field" htmlFor="wallet-picker">
-                <span>Choose wallet</span>
+                <span>Select wallet</span>
                 <select
                   id="wallet-picker"
                   className="wallet-select"
@@ -1343,7 +1343,7 @@ function App() {
                 <p className="wallet-meta">
                   {selectedWallet
                     ? `${selectedWallet.type} wallet`
-                    : 'Refresh wallets to detect supported browser extensions.'}
+                    : 'Scan for browser extensions by hitting Refresh wallets.'}
                 </p>
               </div>
               <span
@@ -1358,10 +1358,10 @@ function App() {
             <div className="wallet-selection-actions">
               <p className="muted">
                 {availableWalletCount
-                  ? `Detected ${availableWalletCount} ready wallet${
+                  ? `${availableWalletCount} wallet${
                       availableWalletCount === 1 ? '' : 's'
-                    } in this browser.`
-                  : 'No supported wallet is ready in this browser yet.'}
+                    } ready in this browser.`
+                  : 'No compatible wallet found — install one and hit Refresh wallets.'}
               </p>
 
               {selectedWallet?.url ? (
@@ -1378,11 +1378,11 @@ function App() {
         <div className="band-inner">
           <div className="section-heading">
             <div>
-              <h2>Vote board</h2>
+              <h2>Ballot</h2>
               <p>
-                Each vote becomes a real Soroban transaction. When the advanced
-                deployment is live, wallet-authenticated votes will also trigger
-                reward minting through an inter-contract call.
+                Every vote is a live Soroban transaction. With the reward
+                contract active, each signed vote also triggers a token mint
+                via an inter-contract call.
               </p>
             </div>
           </div>
@@ -1424,7 +1424,7 @@ function App() {
                   </div>
 
                   <div className="option-meta">
-                    <span>{share}% of recorded votes</span>
+                    <span>{share}% of all votes</span>
                     <span>{votes === 1 ? '1 vote' : `${votes} votes`}</span>
                   </div>
 
@@ -1436,7 +1436,7 @@ function App() {
                       transactionState.phase === 'pending' || Boolean(isConnectingWalletId)
                     }
                   >
-                    {isPending ? 'Submitting...' : `Vote for ${label}`}
+                    {isPending ? 'Broadcasting…' : `Back ${label}`}
                   </button>
                 </article>
               )
@@ -1444,7 +1444,7 @@ function App() {
           </div>
 
           {isLoadingVotes ? (
-            <p className="loading-line">Loading current vote totals...</p>
+            <p className="loading-line">Fetching on-chain tallies…</p>
           ) : null}
         </div>
       </section>
@@ -1453,7 +1453,7 @@ function App() {
         <div className="band-inner insights-grid">
           <div className="insight-panel">
             <div className="panel-heading">
-              <h2>Reward ledger</h2>
+              <h2>Earnings tracker</h2>
               <span className={`tx-pill tone-${contractState.tone}`}>
                 {contractMode.status}
               </span>
@@ -1463,17 +1463,17 @@ function App() {
               <>
                 <div className="insight-metrics">
                   <article className="stat-card">
-                    <span className="stat-label">Per-vote reward</span>
+                    <span className="stat-label">Points per vote</span>
                     <strong>{contractMode.rewardRate}</strong>
                   </article>
                   <article className="stat-card">
-                    <span className="stat-label">Wallet rewards</span>
+                    <span className="stat-label">Your balance</span>
                     <strong>
                       {isWalletConnected ? walletInsights.rewardBalance : '--'}
                     </strong>
                   </article>
                   <article className="stat-card">
-                    <span className="stat-label">Wallet votes</span>
+                    <span className="stat-label">Your votes</span>
                     <strong>
                       {isWalletConnected ? walletInsights.voterVotes : '--'}
                     </strong>
@@ -1482,26 +1482,22 @@ function App() {
 
                 {isWalletConnected ? (
                   <p className="section-note">
-                    Personal reward data refreshed{' '}
+                    Reward data last pulled{' '}
                     {walletInsights.lastSyncedAt || 'just now'}.
                   </p>
                 ) : (
                   <p className="muted">
-                    Connect a wallet to see personal reward balances and wallet
-                    contribution totals.
+                    Link a wallet to view your personal point balance and vote history.
                   </p>
                 )}
 
                 {lastRewardEvent ? (
                   <div className="notice info-notice">
-                    Latest reward event: {lastRewardEvent.amount} points issued
-                    after {getOptionLabel(lastRewardEvent.option)}. Latest reward
-                    balance snapshot: {lastRewardEvent.balance}.
+                    Reward minted: {lastRewardEvent.amount} pts for {getOptionLabel(lastRewardEvent.option)}. Running balance: {lastRewardEvent.balance}.
                   </div>
                 ) : (
                   <p className="muted">
-                    Waiting for the next reward event to arrive from the poll
-                    contract.
+                    No reward events yet — cast a vote to trigger the first mint.
                   </p>
                 )}
               </>
@@ -1518,7 +1514,7 @@ function App() {
 
           <div className="insight-panel">
             <div className="panel-heading">
-              <h2>Ops board</h2>
+              <h2>System status</h2>
               <span className={`tx-pill tone-${pageHealth.online ? 'success' : 'warning'}`}>
                 {pageHealth.online ? 'online' : 'offline'}
               </span>
@@ -1530,29 +1526,28 @@ function App() {
                 <strong className="ops-value">{contractState.label}</strong>
               </div>
               <div className="ops-row">
-                <span className="ops-label">Live stream</span>
+                <span className="ops-label">Event stream</span>
                 <strong className="ops-value">{syncState.message}</strong>
               </div>
               <div className="ops-row">
-                <span className="ops-label">Page state</span>
+                <span className="ops-label">Page visibility</span>
                 <strong className="ops-value">
                   {pageHealth.visibility} / {pageHealth.online ? 'connected' : 'offline'}
                 </strong>
               </div>
               <div className="ops-row">
-                <span className="ops-label">Cadence</span>
+                <span className="ops-label">Poll interval</span>
                 <strong className="ops-value">{cadenceLabel}</strong>
               </div>
               <div className="ops-row">
-                <span className="ops-label">CI/CD</span>
+                <span className="ops-label">Pipeline</span>
                 <strong className="ops-value">GitHub Actions + Vercel</strong>
               </div>
             </div>
 
             <p className="muted">
-              The production pass now includes contract tests, frontend lint and
-              build checks, and a deployment story that can roll forward from the
-              upgraded `main` branch.
+              Contract tests, lint, and build checks all run on every push.
+              Deployments roll out automatically from the main branch via Vercel.
             </p>
           </div>
         </div>
@@ -1562,7 +1557,7 @@ function App() {
         <div className="band-inner activity-grid">
           <div className="activity-panel">
             <div className="panel-heading">
-              <h2>Transaction status</h2>
+              <h2>Latest transaction</h2>
               <span className={`tx-pill tone-${transactionTone}`}>
                 {transactionState.phase}
               </span>
@@ -1572,17 +1567,17 @@ function App() {
 
             {transactionState.option ? (
               <p className="muted">
-                Current option: <strong>{getOptionLabel(transactionState.option)}</strong>
+                Chosen option: <strong>{getOptionLabel(transactionState.option)}</strong>
               </p>
             ) : null}
 
             {lastReceipt ? (
               <div className="receipt">
                 <p>
-                  Last submitted vote: <strong>{getOptionLabel(lastReceipt.option)}</strong>
+                  Confirmed vote: <strong>{getOptionLabel(lastReceipt.option)}</strong>
                 </p>
                 <p className="muted">
-                  Path used: {lastReceipt.mode === 'advanced' ? 'rewarded vote' : 'legacy vote'}
+                  Method: {lastReceipt.mode === 'advanced' ? 'rewarded vote' : 'legacy vote'}
                 </p>
                 {lastReceipt.txHash ? (
                   <a
@@ -1590,7 +1585,7 @@ function App() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Open latest receipt
+                    View receipt on Explorer
                   </a>
                 ) : null}
               </div>
@@ -1602,14 +1597,14 @@ function App() {
                 target="_blank"
                 rel="noreferrer"
               >
-                View transaction on Stellar Expert
+                Track on Stellar Expert
               </a>
             ) : null}
           </div>
 
           <div className="activity-panel">
             <div className="panel-heading">
-              <h2>Event feed</h2>
+              <h2>Live activity</h2>
               <span className={`tx-pill tone-${syncTone}`}>
                 {deferredActivityFeed.length || 0}
               </span>
@@ -1617,8 +1612,8 @@ function App() {
 
             {lastVoteEvent ? (
               <p className="muted">
-                Latest tally event: <strong>{getOptionLabel(lastVoteEvent.option)}</strong>{' '}
-                now sits at <strong>{lastVoteEvent.votes}</strong>.
+                Most recent tally: <strong>{getOptionLabel(lastVoteEvent.option)}</strong>{' '}
+                is at <strong>{lastVoteEvent.votes}</strong>.
               </p>
             ) : null}
 
@@ -1640,7 +1635,7 @@ function App() {
                           target="_blank"
                           rel="noreferrer"
                         >
-                          Open transaction
+                          View transaction
                         </a>
                       ) : null}
                     </div>
@@ -1649,7 +1644,7 @@ function App() {
               </ul>
             ) : (
               <p className="muted">
-                Waiting for the next on-chain vote or reward event to arrive.
+                No events yet — activity will appear here as votes come in.
               </p>
             )}
           </div>
