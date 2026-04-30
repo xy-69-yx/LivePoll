@@ -17,8 +17,8 @@ Advanced poll dApp built with Soroban smart contracts and a React frontend. This
 
 ## 🔗 Quick Links
 
-- **Live Demo**: [live-poll-adv.vercel.app](https://live-poll-adv.vercel.app/)
-- **Demo Video**: [Google Drive Recording](https://drive.google.com/file/d/1UR3PWTMgjcDsVdP7BnRU-rHqyRAdyuBA/view?usp=sharing)
+- **Live Demo**: [live-poll-gules.vercel.app](https://live-poll-gules.vercel.app/)
+- **Demo Video**: [Google Drive Recording](https://drive.google.com/file/d/1N8wHSZMYZHVoWZgRxhoigHUJqUFOhtRf/view?usp=sharing)
 - **Local MP4 Asset**: [`docs/live-poll-demo.mp4`](./docs/live-poll-demo.mp4)
 
 ## ✨ Features
@@ -165,7 +165,7 @@ symbol() -> Symbol
 
 ## 🌐 Current Deployment
 
-- **Frontend URL**: [live-poll-adv.vercel.app](https://live-poll-adv.vercel.app/)
+- **Frontend URL**: [live-poll-gules.vercel.app](https://live-poll-gules.vercel.app/)
 - **Contract ID**: `CC43GCB3LMRLKQ6JFJCPNT2QJXVOK73Y5HWAF7RZAYIMRL322I7WIZ6L`
 - **Deploy TX**: `d7a8f8f378e8813c45db34e28e0721c11758c990564fe6864eb61753edfbf418`
 - **Verified TX**: `3c9004799722dc8dc79781602aef11f4e987b843d9d185183f45a478826f49dc`
