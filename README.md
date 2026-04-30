@@ -1,7 +1,6 @@
 # Live Poll on Stellar Testnet
 
 [![CI](https://github.com/xy-69-yx/LivePoll/actions/workflows/ci.yml/badge.svg)](https://github.com/xy-69-yx/LivePoll/actions/workflows/ci.yml)
-[![Deploy](https://github.com/xy-69-yx/LivePoll/actions/workflows/deploy.yml/badge.svg)](https://github.com/xy-69-yx/LivePoll/actions/workflows/deploy.yml)
 
 Advanced poll dApp built with Soroban smart contracts and a React frontend. This project includes a poll contract with voting rewards, a reward token contract, inter-contract minting, CI/CD automation, and a mobile-responsive production dashboard.
 
@@ -193,7 +192,8 @@ cd live-poll-website && npm run lint && npm run build
 
 ### CI/CD Pipeline
 
-![CI/CD Pipeline](./docs/cicd-screenshot.png)
+<img width="1424" height="785" alt="image" src="https://github.com/user-attachments/assets/3054eeba-d35c-4224-a371-fe3ce8a1a375" />
+
 
 ---
 
